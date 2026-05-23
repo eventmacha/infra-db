@@ -1,0 +1,86 @@
+{
+  "Version": "2012-10-17",
+  "Comment": "Standard IAM policies for Quarkus backend Lambda functions executing in Event Macha. Replace ${Region} and ${AccountId} with target deployment values (e.g. ap-south-1).",
+  "Policies": {
+    "QuarkusLambdaReadWritePolicy": {
+      "Statement": [
+        {
+          "Sid": "DynamoDBTableAccess",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:BatchGetItem",
+            "dynamodb:BatchWriteItem",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:DeleteItem",
+            "dynamodb:Query",
+            "dynamodb:Scan"
+          ],
+          "Resource": [
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Users",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCards",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCardPlans",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Orders",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Payments",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/PaymentHistory"
+          ]
+        },
+        {
+          "Sid": "DynamoDBIndexAccess",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:BatchGetItem",
+            "dynamodb:GetItem",
+            "dynamodb:Query",
+            "dynamodb:Scan"
+          ],
+          "Resource": [
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Users/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCards/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Orders/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Payments/index/*"
+          ]
+        }
+      ]
+    },
+    "QuarkusLambdaReadOnlyPolicy": {
+      "Statement": [
+        {
+          "Sid": "DynamoDBTableReadAccess",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:BatchGetItem",
+            "dynamodb:GetItem",
+            "dynamodb:Query",
+            "dynamodb:Scan"
+          ],
+          "Resource": [
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Users",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCards",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCardPlans",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Orders",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Payments",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/PaymentHistory"
+          ]
+        },
+        {
+          "Sid": "DynamoDBIndexReadAccess",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:BatchGetItem",
+            "dynamodb:GetItem",
+            "dynamodb:Query",
+            "dynamodb:Scan"
+          ],
+          "Resource": [
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Users/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/RateCards/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Orders/index/*",
+            "arn:aws:dynamodb:${Region}:${AccountId}:table/Payments/index/*"
+          ]
+        }
+      ]
+    }
+  }
+}

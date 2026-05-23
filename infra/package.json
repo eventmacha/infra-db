@@ -1,0 +1,24 @@
+{
+  "name": "event-macha-infra",
+  "version": "1.0.0",
+  "description": "Production-ready AWS CDK Infrastructure for Event Macha Database",
+  "bin": {
+    "infra": "bin/event-macha-infra.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.138.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "aws-cdk": "^2.138.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

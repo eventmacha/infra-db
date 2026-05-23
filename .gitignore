@@ -1,0 +1,28 @@
+# Compiled outputs
+dist/
+build/
+*.js
+*.d.ts
+
+# Dependency directories
+node_modules/
+
+# CDK files
+cdk.out/
+.cdk.staging/
+
+# Local configuration / secrets
+.env
+.env.*
+.sandbox
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
