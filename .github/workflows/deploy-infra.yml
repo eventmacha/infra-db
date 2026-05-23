@@ -39,7 +39,6 @@ jobs:
           npm run build
 
       # 5. Log in securely to AWS
-      # Note: Set up AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as GitHub repository secrets.
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -47,7 +46,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 6. Deploy the AWS CDK Production Database Stack
+      # 6. Dynamically bootstrap the AWS environment if not already completed
+      - name: Bootstrap AWS Environment
+        run: |
+          cd infra
+          npx cdk bootstrap
+
+      # 7. Deploy the AWS CDK Production Database Stack
       - name: Deploy Production Stack
         run: |
           cd infra
