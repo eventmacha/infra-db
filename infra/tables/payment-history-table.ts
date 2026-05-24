@@ -16,9 +16,19 @@ export class PaymentHistoryTable extends Construct {
     this.resource = new EventMachaTable(this, 'PaymentHistoryTable', {
       tableName: 'PaymentHistory',
       partitionKey: { name: 'paymentId', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'eventTime', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'eventTime', type: dynamodb.AttributeType.NUMBER },
       timeToLiveAttribute: 'ttl', // TTL enabled to allow automated cleaning or archival of logs
       appConfig: props.appConfig,
     });
   }
+}
+
+export interface PaymentHistoryItem {
+  readonly paymentId: string; // PK
+  readonly eventTime: number; // SK
+  readonly oldStatus?: string;
+  readonly newStatus?: string;
+  readonly source?: 'WEBHOOK' | 'SYSTEM' | 'MANUAL';
+  readonly payload?: Record<string, any>;
+  readonly createdAt: number;
 }

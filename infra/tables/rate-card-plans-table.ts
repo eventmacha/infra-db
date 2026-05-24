@@ -15,9 +15,21 @@ export class RateCardPlansTable extends Construct {
 
     this.resource = new EventMachaTable(this, 'RateCardPlansTable', {
       tableName: 'RateCardPlans',
-      partitionKey: { name: 'rateCardId', type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'planType', type: dynamodb.AttributeType.STRING },
       appConfig: props.appConfig,
     });
   }
+}
+
+export interface RateCardPlanItem {
+  readonly userId: string; // PK
+  readonly planType: string; // SK
+  readonly customPrice?: number;
+  readonly discount?: number;
+  readonly taxPercent?: number;
+  readonly finalPrice?: number;
+  readonly active?: boolean;
+  readonly createdAt: number;
+  readonly updatedAt: number;
 }

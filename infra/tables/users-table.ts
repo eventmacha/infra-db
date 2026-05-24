@@ -39,3 +39,18 @@ export class UsersTable extends Construct {
     });
   }
 }
+
+export interface UserItem {
+  readonly userId: string; // PK
+  readonly userType: 'CUSTOMER' | 'AGENT' | 'ADMIN';
+  readonly email: string; // GSI email-index
+  readonly phone?: string;
+  readonly fullName?: string;
+  readonly profileImage?: string;
+  readonly authProvider: string; // GOOGLE/COGNITO/etc
+  readonly providerUserId: string; // provider-index SK
+  readonly cognitoUserId?: string;
+  readonly status: 'ACTIVE' | 'INACTIVE' | 'BLOCKED';
+  readonly createdAt: number; // epoch
+  readonly updatedAt: number; // epoch
+}

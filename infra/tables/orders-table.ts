@@ -27,3 +27,25 @@ export class OrdersTable extends Construct {
     });
   }
 }
+
+export interface OrderItem {
+  readonly orderId: string; // PK
+  readonly userId: string; // GSI user-created-index PK
+  readonly userType?: string;
+  readonly rateCardId?: string;
+  readonly planType?: string;
+  readonly basePrice?: number;
+  readonly discount?: number;
+  readonly finalPrice?: number;
+  readonly orderStatus?: string;
+  readonly themeCode?: string;
+  readonly agentId?: number;
+  readonly websiteUrl?: string;
+  readonly websiteUrlAlias1?: string;
+  readonly websiteUrlAlias2?: string;
+  readonly publishCount?: string;
+  readonly publishExpiresAt?: number;
+  readonly orderExpiresAt?: number;
+  readonly createdAt: number; // GSI SK
+  readonly updatedAt?: number;
+}

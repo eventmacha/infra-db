@@ -33,3 +33,18 @@ export class PaymentsTable extends Construct {
     });
   }
 }
+
+export interface PaymentItem {
+  readonly paymentId: string; // PK
+  readonly orderId: string; // GSI order-index
+  readonly userId: string; // GSI user-payment-index PK
+  readonly gateway: 'RAZORPAY';
+  readonly gatewayOrderId?: string;
+  readonly gatewayPaymentId?: string;
+  readonly amount?: number;
+  readonly paymentMethod?: string;
+  readonly paymentStatus?: string;
+  readonly capturedAt?: number;
+  readonly createdAt: number; // user-payment-index SK
+  readonly updatedAt?: number;
+}
