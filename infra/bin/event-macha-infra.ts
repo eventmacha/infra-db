@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import { App, Tags } from 'aws-cdk-lib';
 import { EventMachaDbStack } from '../stacks/event-macha-db-stack';
 import { EventMachaAuthStack } from '../stacks/event-macha-auth-stack';
+import { EventMachaEmailStack } from '../stacks/event-macha-email-stack';
 import { getAppConfig } from '../config/app-config';
 
 const app = new App();
@@ -42,6 +43,23 @@ const authStack = new EventMachaAuthStack(app, authStackName, {
 // 5. Apply global tags to the auth stack
 Object.entries(config.tags).forEach(([key, value]) => {
   Tags.of(authStack).add(key, value);
+});
+
+const emailStackName = 'EventMachaEmailStack-prod';
+
+// 6. Instantiate the Email Infrastructure Stack
+const emailStack = new EventMachaEmailStack(app, emailStackName, {
+  env: {
+    region: config.region,
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+  },
+  appConfig: config,
+  description: 'Event Macha Email infrastructure stack for the Production environment.',
+});
+
+// 7. Apply global tags to the email stack
+Object.entries(config.tags).forEach(([key, value]) => {
+  Tags.of(emailStack).add(key, value);
 });
 
 app.synth();
