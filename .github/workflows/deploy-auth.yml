@@ -57,16 +57,3 @@ jobs:
         run: |
           cd infra
           npx cdk deploy EventMachaAuthStack-prod -c environment=prod --require-approval never
-
-      # 8. Upload Event Macha Logo to Cognito Hosted UI
-      - name: Set Cognito UI Logo
-        run: |
-          cd infra
-          USER_POOL_ID=$(aws cloudformation describe-stacks --stack-name EventMachaAuthStack-prod --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" --output text)
-          CLIENT_ID=$(aws cloudformation describe-stacks --stack-name EventMachaAuthStack-prod --query "Stacks[0].Outputs[?OutputKey=='UserPoolClientId'].OutputValue" --output text)
-          
-          echo "Setting Logo for User Pool: $USER_POOL_ID, Client ID: $CLIENT_ID"
-          aws cognito-idp set-ui-customization \
-            --user-pool-id $USER_POOL_ID \
-            --client-id $CLIENT_ID \
-            --image-file fileb://assets/logo_small.png
