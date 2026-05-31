@@ -1,6 +1,8 @@
 import { Stack, StackProps, RemovalPolicy, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as path from 'path';
 import { AppConfig } from '../config/app-config';
 
 export interface EventMachaAuthStackProps extends StackProps {
@@ -16,7 +18,15 @@ export class EventMachaAuthStack extends Stack {
 
     const { appConfig } = props;
 
-    // 1. Create Cognito User Pool
+    // 1. Create Custom Message Lambda Trigger
+    const customMessageLambda = new lambda.Function(this, 'CustomMessageFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/custom-message')),
+      description: 'Generates custom HTML email templates for Event Macha Cognito flows.',
+    });
+
+    // 2. Create Cognito User Pool
     this.userPool = new cognito.UserPool(this, 'EventMachaUserPool', {
       userPoolName: `event-macha-users-${appConfig.environment}`,
       selfSignUpEnabled: true,
@@ -25,6 +35,14 @@ export class EventMachaAuthStack extends Stack {
       },
       autoVerify: {
         email: true,
+      },
+      email: cognito.UserPoolEmail.withSES({
+        fromEmail: 'no-reply@eventmacha.com',
+        fromName: 'Event Macha',
+        sesRegion: this.region,
+      }),
+      lambdaTriggers: {
+        customMessage: customMessageLambda,
       },
       passwordPolicy: {
         minLength: 8,
