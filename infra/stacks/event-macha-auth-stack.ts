@@ -44,6 +44,13 @@ export class EventMachaAuthStack extends Stack {
       preventUserExistenceErrors: true,
     });
 
+    // 3. Add User Pool Domain (Required for Hosted UI / Logo)
+    const domain = this.userPool.addDomain('CognitoDomain', {
+      cognitoDomain: {
+        domainPrefix: `event-macha-login-${appConfig.environment}`,
+      },
+    });
+
     // Outputs
     new CfnOutput(this, 'UserPoolId', {
       value: this.userPool.userPoolId,
@@ -53,6 +60,11 @@ export class EventMachaAuthStack extends Stack {
     new CfnOutput(this, 'UserPoolClientId', {
       value: this.userPoolClient.userPoolClientId,
       description: 'The ID of the Cognito User Pool Client',
+    });
+
+    new CfnOutput(this, 'HostedUiDomain', {
+      value: domain.baseUrl(),
+      description: 'The base URL of the Cognito Hosted UI',
     });
   }
 }
