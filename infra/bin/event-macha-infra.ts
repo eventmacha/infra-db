@@ -4,6 +4,7 @@ import { App, Tags } from 'aws-cdk-lib';
 import { EventMachaDbStack } from '../stacks/event-macha-db-stack';
 import { EventMachaAuthStack } from '../stacks/event-macha-auth-stack';
 import { EventMachaEmailStack } from '../stacks/event-macha-email-stack';
+import { EventMachaMediaStack } from '../stacks/event-macha-media-stack';
 import { getAppConfig } from '../config/app-config';
 
 const app = new App();
@@ -60,6 +61,23 @@ const emailStack = new EventMachaEmailStack(app, emailStackName, {
 // 7. Apply global tags to the email stack
 Object.entries(config.tags).forEach(([key, value]) => {
   Tags.of(emailStack).add(key, value);
+});
+
+const mediaStackName = 'EventMachaMediaStack-prod';
+
+// 8. Instantiate the Media/Storage Infrastructure Stack (Prod-only)
+const mediaStack = new EventMachaMediaStack(app, mediaStackName, {
+  env: {
+    region: config.region,
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+  },
+  appConfig: config,
+  description: 'Event Macha Media/Storage infrastructure stack for the Production environment.',
+});
+
+// 9. Apply global tags to the media stack
+Object.entries(config.tags).forEach(([key, value]) => {
+  Tags.of(mediaStack).add(key, value);
 });
 
 app.synth();

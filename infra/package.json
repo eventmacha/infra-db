@@ -9,9 +9,15 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "db:upsert:customer": "ts-node scripts/upsert-customer-rates.ts",
+    "db:upsert:agent": "ts-node scripts/upsert-agent-rates.ts",
+    "db:upsert:admin": "ts-node scripts/upsert-admin-rates.ts",
+    "db:upsert:all": "npm run db:upsert:customer && npm run db:upsert:agent && npm run db:upsert:admin"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.554.0",
+    "@aws-sdk/lib-dynamodb": "^3.554.0",
     "aws-cdk-lib": "^2.138.0",
     "constructs": "^10.3.0"
   },
