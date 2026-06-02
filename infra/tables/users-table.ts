@@ -37,6 +37,12 @@ export class UsersTable extends Construct {
       partitionKey: { name: 'authProvider', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'providerUserId', type: dynamodb.AttributeType.STRING },
     });
+
+    // GSI: cognitoUserId-index (PK: cognitoUserId, Projection: ALL)
+    this.resource.addGlobalSecondaryIndex({
+      indexName: 'cognitoUserId-index',
+      partitionKey: { name: 'cognitoUserId', type: dynamodb.AttributeType.STRING },
+    });
   }
 }
 
