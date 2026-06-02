@@ -11,7 +11,7 @@ async function upsertAgentRates() {
   const items = [
     {
       userType: "AGENT",
-      planType: "pro",
+      planType: "PRO",
       displayName: "Pro Plan",
       description: "Professional tier rate card for Agents",
       basePrice: 5000,
@@ -22,7 +22,7 @@ async function upsertAgentRates() {
     },
     {
       userType: "AGENT",
-      planType: "pro plus",
+      planType: "PRO_PLUS",
       displayName: "Pro Plus Plan",
       description: "Professional Plus tier rate card for Agents",
       basePrice: 10000,

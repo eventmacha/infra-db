@@ -11,7 +11,7 @@ async function upsertAdminRates() {
   const items = [
     {
       userType: "ADMIN",
-      planType: "pro",
+      planType: "PRO",
       displayName: "Pro Plan",
       description: "Professional tier rate card for Admin",
       basePrice: 5000,
@@ -22,7 +22,7 @@ async function upsertAdminRates() {
     },
     {
       userType: "ADMIN",
-      planType: "pro plus",
+      planType: "PRO_PLUS",
       displayName: "Pro Plus Plan",
       description: "Professional Plus tier rate card for Admin",
       basePrice: 10000,

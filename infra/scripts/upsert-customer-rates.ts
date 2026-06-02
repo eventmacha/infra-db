@@ -11,7 +11,7 @@ async function upsertCustomerRates() {
   const items = [
     {
       userType: "CUSTOMER",
-      planType: "pro",
+      planType: "PRO",
       displayName: "Pro Plan",
       description: "Professional tier rate card for Customers",
       basePrice: 5000,
@@ -22,7 +22,7 @@ async function upsertCustomerRates() {
     },
     {
       userType: "CUSTOMER",
-      planType: "pro plus",
+      planType: "PRO_PLUS",
       displayName: "Pro Plus Plan",
       description: "Professional Plus tier rate card for Customers",
       basePrice: 10000,
