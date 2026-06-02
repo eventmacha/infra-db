@@ -60,6 +60,11 @@ export class EventMachaAuthStack extends Stack {
       userPoolClientName: `event-macha-client-${appConfig.environment}`,
       generateSecret: false, // typically false for web/mobile apps
       preventUserExistenceErrors: true,
+      authFlows: {
+        userPassword: true,
+        userSrp: true,
+        custom: true,
+      },
     });
 
     // Outputs
