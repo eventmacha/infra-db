@@ -1,4 +1,4 @@
-name: Upsert DynamoDB Rate Cards (Prod)
+name: Upsert DynamoDB Table data (Prod)
 
 on:
   workflow_dispatch:
