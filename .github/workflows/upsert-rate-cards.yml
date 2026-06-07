@@ -41,17 +41,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       # 5. Run the separate database upsert scripts
-      - name: Execute Customer Rate Cards Upsert
+      - name: Execute All Upsert Scripts
         run: |
           cd infra
-          npm run db:upsert:customer
-
-      - name: Execute Agent Rate Cards Upsert
-        run: |
-          cd infra
-          npm run db:upsert:agent
-
-      - name: Execute Admin Rate Cards Upsert
-        run: |
-          cd infra
-          npm run db:upsert:admin
+          npm run db:upsert:all
