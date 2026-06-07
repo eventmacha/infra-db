@@ -10,6 +10,7 @@ import { PaymentsTable } from '../tables/payments-table';
 import { PaymentHistoryTable } from '../tables/payment-history-table';
 import { PublishTable } from '../tables/publish-table';
 import { PublishHistoryTable } from '../tables/publish-history-table';
+import { SiteTemplatesTable } from '../tables/site-templates-table';
 
 export interface EventMachaDbStackProps extends StackProps {
   readonly appConfig: AppConfig;
@@ -24,6 +25,7 @@ export class EventMachaDbStack extends Stack {
   public readonly paymentHistoryTable: PaymentHistoryTable;
   public readonly publishTable: PublishTable;
   public readonly publishHistoryTable: PublishHistoryTable;
+  public readonly siteTemplatesTable: SiteTemplatesTable;
 
   constructor(scope: Construct, id: string, props: EventMachaDbStackProps) {
     super(scope, id, props);
@@ -39,6 +41,7 @@ export class EventMachaDbStack extends Stack {
     this.paymentHistoryTable = new PaymentHistoryTable(this, 'PaymentHistoryTableContainer', { appConfig });
     this.publishTable = new PublishTable(this, 'PublishTableContainer', { appConfig });
     this.publishHistoryTable = new PublishHistoryTable(this, 'PublishHistoryTableContainer', { appConfig });
+    this.siteTemplatesTable = new SiteTemplatesTable(this, 'SiteTemplatesTableContainer', { appConfig });
 
     // 2. Define standard CloudFormation Exports for every Table (Name & ARN)
     const tables = [
@@ -50,6 +53,7 @@ export class EventMachaDbStack extends Stack {
       { key: 'PaymentHistory', table: this.paymentHistoryTable.resource.table },
       { key: 'Publish', table: this.publishTable.resource.table },
       { key: 'PublishHistory', table: this.publishHistoryTable.resource.table },
+      { key: 'SiteTemplates', table: this.siteTemplatesTable.resource.table },
     ];
 
     tables.forEach(({ key, table }) => {
@@ -83,6 +87,7 @@ export class EventMachaDbStack extends Stack {
       this.paymentHistoryTable.resource.table,
       this.publishTable.resource.table,
       this.publishHistoryTable.resource.table,
+      this.siteTemplatesTable.resource.table,
     ];
 
     ddbTables.forEach((table) => {

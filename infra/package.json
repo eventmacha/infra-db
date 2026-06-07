@@ -13,7 +13,8 @@
     "db:upsert:customer": "ts-node scripts/upsert-customer-rates.ts",
     "db:upsert:agent": "ts-node scripts/upsert-agent-rates.ts",
     "db:upsert:admin": "ts-node scripts/upsert-admin-rates.ts",
-    "db:upsert:all": "npm run db:upsert:customer && npm run db:upsert:agent && npm run db:upsert:admin"
+    "db:upsert:templates": "ts-node scripts/upsert-site-templates.ts",
+    "db:upsert:all": "npm run db:upsert:customer && npm run db:upsert:agent && npm run db:upsert:admin && npm run db:upsert:templates"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.554.0",
