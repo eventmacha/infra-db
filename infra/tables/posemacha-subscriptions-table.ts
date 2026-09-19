@@ -18,11 +18,18 @@ export class PosemachaSubscriptionsTable extends Construct {
       partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
       appConfig: props.appConfig,
     });
+
+    this.resource.table.addGlobalSecondaryIndex({
+      indexName: 'cognitoUserId-index',
+      partitionKey: { name: 'cognitoUserId', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
   }
 }
 
 export interface PosemachaSubscriptionItem {
   readonly userId: string;
+  readonly cognitoUserId: string;
   readonly generatedCount: number;
   readonly limitCount: number;
   readonly active: boolean;
