@@ -20,17 +20,18 @@ export class PosemachaFramesTable extends Construct {
     });
 
     this.resource.addGlobalSecondaryIndex({
-      indexName: 'user-index',
-      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      indexName: 'cognitoUserId-index',
+      partitionKey: { name: 'cognitoUserId', type: dynamodb.AttributeType.STRING },
     });
   }
 }
 
 export interface PosemachaFrameItem {
   readonly frameId: string;
-  readonly frameUrl: string;
+  readonly frameImageUrl: string;
   readonly frameName: string;
-  readonly userId: string;
+  readonly cognitoUserId: string;
+  readonly isDefault?: boolean;
   readonly createdAt: number;
   readonly modifiedAt: number;
 }
