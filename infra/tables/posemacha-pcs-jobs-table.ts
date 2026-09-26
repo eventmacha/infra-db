@@ -19,10 +19,6 @@ export class PosemachaPcsJobsTable extends Construct {
       appConfig: props.appConfig,
     });
 
-    this.resource.addGlobalSecondaryIndex({
-      indexName: 'user-index',
-      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
-    });
 
     this.resource.addGlobalSecondaryIndex({
       indexName: 'userId-createdAt-index',
