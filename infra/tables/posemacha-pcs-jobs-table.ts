@@ -22,6 +22,7 @@ export class PosemachaPcsJobsTable extends Construct {
     this.resource.addGlobalSecondaryIndex({
       indexName: 'user-index',
       partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.NUMBER },
     });
   }
 }

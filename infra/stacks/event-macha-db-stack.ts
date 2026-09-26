@@ -15,7 +15,6 @@ import { PosemachaCategoriesTable } from '../tables/posemacha-categories-table';
 import { PosemachaTemplatesTable } from '../tables/posemacha-templates-table';
 import { PosemachaSubscriptionsTable } from '../tables/posemacha-subscriptions-table';
 import { PosemachaPcsJobsTable } from '../tables/posemacha-pcs-jobs-table';
-import { PosemachaFramesTable } from '../tables/posemacha-frames-table';
 
 export interface EventMachaDbStackProps extends StackProps {
   readonly appConfig: AppConfig;
@@ -35,7 +34,6 @@ export class EventMachaDbStack extends Stack {
   public readonly posemachaTemplatesTable: PosemachaTemplatesTable;
   public readonly posemachaSubscriptionsTable: PosemachaSubscriptionsTable;
   public readonly posemachaPcsJobsTable: PosemachaPcsJobsTable;
-  public readonly posemachaFramesTable: PosemachaFramesTable;
 
   constructor(scope: Construct, id: string, props: EventMachaDbStackProps) {
     super(scope, id, props);
@@ -56,7 +54,6 @@ export class EventMachaDbStack extends Stack {
     this.posemachaTemplatesTable = new PosemachaTemplatesTable(this, 'PosemachaTemplatesTableContainer', { appConfig });
     this.posemachaSubscriptionsTable = new PosemachaSubscriptionsTable(this, 'PosemachaSubscriptionsTableContainer', { appConfig });
     this.posemachaPcsJobsTable = new PosemachaPcsJobsTable(this, 'PosemachaPcsJobsTableContainer', { appConfig });
-    this.posemachaFramesTable = new PosemachaFramesTable(this, 'PosemachaFramesTableContainer', { appConfig });
 
     // 2. Define standard CloudFormation Exports for every Table (Name & ARN)
     const tables = [
@@ -73,7 +70,6 @@ export class EventMachaDbStack extends Stack {
       { key: 'PosemachaTemplates', table: this.posemachaTemplatesTable.resource.table },
       { key: 'PosemachaSubscriptions', table: this.posemachaSubscriptionsTable.resource.table },
       { key: 'PosemachaPcsJobs', table: this.posemachaPcsJobsTable.resource.table },
-      { key: 'PosemachaFrames', table: this.posemachaFramesTable.resource.table },
     ];
 
     tables.forEach(({ key, table }) => {
@@ -112,7 +108,6 @@ export class EventMachaDbStack extends Stack {
       this.posemachaTemplatesTable.resource.table,
       this.posemachaSubscriptionsTable.resource.table,
       this.posemachaPcsJobsTable.resource.table,
-      this.posemachaFramesTable.resource.table,
     ];
 
     ddbTables.forEach((table) => {
